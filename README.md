@@ -1,0 +1,3 @@
+# CatchThePacmanVideoGame
+
+The idea is quite simple and is explained below: some Pac-Man appear on the screen moving, some horizontal and others vertically. During its movement, if the Pac-Man reaches one end of the game window, it will bounce and move in the opposite direction. The player must stop them by clicking on each of the Pac-Man that appear on the screen, as quickly as possible and before they bounce. For each rebound, the rebound counter will increase. The best player is the one who stops all Pac-Mac's with the least amount of rebounds, consider that the Pac-Man must also bounce off each other and when bouncing they must also continue moving in the opposite direction to their movement.
