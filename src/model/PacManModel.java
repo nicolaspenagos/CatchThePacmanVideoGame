@@ -1,5 +1,7 @@
 package model;
 
+import ui.PacManController;
+
 public class PacManModel {
 	
 	//------------------------------------- 
@@ -21,6 +23,8 @@ public class PacManModel {
 	private double yCoordenate;
 	private char movement;
 	private char orientation; 
+	private double xLimitCorrection; 
+	private double yLimitCorrection; 
 	
 	//-------------------------------------
 	// CONTRUCTOR 
@@ -30,8 +34,9 @@ public class PacManModel {
 		
 		xCoordenate = xX;
 		yCoordenate = yY;
-		movementX = movement;
+		movement = movementX;
 		orientation = orientationX; 
+		//xLimitCorrection
 	
 	}
 	
@@ -84,23 +89,33 @@ public class PacManModel {
 	
 	public void move() {
 		
+		if(xCoordenate >= PacManController.MAX_WIDTH-10) {
+			orientation = LEFT;
+		}else if(xCoordenate <=  PacManController.MIN_WIDTH+10) {
+			orientation = RIGHT;
+		}
+		
+		
 		if(movement == HORIZONTAL) {
 			if(orientation == RIGHT ) {
 				xCoordenate = xCoordenate + 5; 
 			}
 			if(orientation == LEFT ) {
-				xCoordenate = xCoordenate - 5; 
+				xCoordenate = xCoordenate - 5;
 			}
 		}
+		
 		
 		if(movement == VERTICAL) {
 			if(orientation == UP ) {
 				yCoordenate = yCoordenate - 5; 
+				
 			}
 			if(orientation == DOWN ) {
 				yCoordenate = yCoordenate + 5; 
 			}
 		}
+		
 		
 	}
 }

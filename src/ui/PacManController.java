@@ -1,16 +1,10 @@
 package ui;
 import ui.PacMan;
 
-import java.util.List;
+import customsThread.PacManThread;
 import model.PacManModel;
 import javafx.fxml.FXML;
 import javafx.scene.layout.Pane;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Arc;
-import javafx.scene.shape.ArcType;
-import javafx.scene.shape.Circle;
-
-
 
 public class PacManController {
 	
@@ -18,8 +12,6 @@ public class PacManController {
 	public final static double MAX_WIDTH = 580.0;
 	public final static double MIN_HEIGHT = 83.0;
 	public final static double MAX_HEIGTH = 380.0; 
-	
-	private List<PacMan> pacmans; 
 	
 	
     @FXML
@@ -29,38 +21,26 @@ public class PacManController {
     
     @FXML
     public void initialize() {
+   
+    	PacMan pCx=new PacMan(100,300, pane);
+    	PacManModel pMx = new PacManModel(100, 200, PacManModel.HORIZONTAL, PacManModel.RIGHT);
+    	PacManThread t = new PacManThread(30, this, pMx, pCx);
+    	t.start();
     	
-    	PacMan pMx=new PacMan(100,200);
-    	pane.getChildren().add(pMx);
-    	
-    	/*
-    	//Coordenadas X y Y
-    	double x = 50.0;
-    	double y = 200.0;
-    	
-    	//Arco y circulo para formar el cuerpo de Pac-Man
-    	Arc body = new Arc();
-    	Circle eye = new Circle(3.0); 
+    	PacMan pCx1=new PacMan(100,350, pane);
+    	PacManModel pMx1 = new PacManModel(100, 350, PacManModel.HORIZONTAL, PacManModel.LEFT);
+    	PacManThread t1 = new PacManThread(50, this, pMx1, pCx1);
+    	t1.start();
+       
+    }
     
-        body.setCenterX(x);
-        body.setCenterY(y);
-        body.setRadiusX(15.0);
-        body.setRadiusY(15.0);
-        body.setStartAngle(30.0);
-        body.setLength(300.0);
-        body.setFill(Color.YELLOW);
-        body.setType(ArcType.ROUND);
-      
-        eye.setLayoutX(x+2);
-        eye.setLayoutY(y-8);
-        eye.setFill(Color.BLACK);
-        
-        
-        pane.getChildren().add(body);
-        pane.getChildren().add(eye);
-        */
-       
-       
+    public void update(PacManModel pMx, PacMan uiPacMan) {
+    	
+    	double x = pMx.getxCoordenate();
+    	double y = pMx.getyCoordenate(); 
+    	
+    	uiPacMan.move(x, y);
+    	
     }
 
 }

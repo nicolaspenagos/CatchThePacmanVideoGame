@@ -4,10 +4,17 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Arc;
 import javafx.scene.shape.ArcType;
 import javafx.scene.shape.Circle;
-import javafx.scene.shape.Shape;
 
 
-public class PacMan extends Shape{
+
+public class PacMan{
+	
+	//-------------------------------------
+	// CONSTANTS 
+	//-------------------------------------
+	public static final double SIZE1 = 10.0;
+	public static final double SIZE2 = 15.0;
+	public static final double SIZE3 = 20.0;
 	
 	//-------------------------------------
 	// ATRIBUTTES 
@@ -17,23 +24,28 @@ public class PacMan extends Shape{
 	private double yCoordinate; 
 	private Arc body; 
 	private Circle eye; 
+	private Pane pane; 
+	private double size; 
+
 
 	
 	//-------------------------------------
 	// CONSTRUCTOR
 	//-------------------------------------
-	public PacMan(double x, double y){
+	public PacMan(double x, double y, Pane px){
 		
 		xCoordinate = x; 
-		yCoordinate = y; 
+		yCoordinate = y;
+		pane = px;
+		//size = sx; 
 		
-		Arc body = new Arc();
-    	Circle eye = new Circle(3.0); 
+		body = new Arc();
+    	eye = new Circle(3.0); 
     
         body.setCenterX(x);
         body.setCenterY(y);
-        body.setRadiusX(15.0);
-        body.setRadiusY(15.0);
+        body.setRadiusX(15);
+        body.setRadiusY(15);
         body.setStartAngle(30.0);
         body.setLength(300.0);
         body.setFill(Color.YELLOW);
@@ -42,6 +54,10 @@ public class PacMan extends Shape{
         eye.setLayoutX(x+2);
         eye.setLayoutY(y-8);
         eye.setFill(Color.BLACK);
+        
+        pane.getChildren().add(body);
+        pane.getChildren().add(eye);
+        
 	}
 	
 	//-------------------------------------
@@ -63,10 +79,12 @@ public class PacMan extends Shape{
 	public void setYCoordinate(double yCoordinate) {
 		this.yCoordinate = yCoordinate;
 	}
-
-	@Override
-	public com.sun.javafx.geom.Shape impl_configShape() {
-		// TODO Auto-generated method stub
-		return null;
+	
+	public void move(double x, double y) {
+		body.setLayoutX(x-xCoordinate);
+    	body.setLayoutY(y-yCoordinate);
+    	
+    	eye.setLayoutX(x+2);
+        eye.setLayoutY(y-8);
 	}
 }
