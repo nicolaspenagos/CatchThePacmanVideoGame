@@ -32,27 +32,33 @@ public class PacMan{
 	//-------------------------------------
 	// CONSTRUCTOR
 	//-------------------------------------
-	public PacMan(double x, double y, Pane px){
+	public PacMan(double x, double y, Pane px, double sx){
 		
 		xCoordinate = x; 
 		yCoordinate = y;
 		pane = px;
-		//size = sx; 
+		size = sx; 
+		int xEyeC=0;
+		int yEyeC=0;
 		
 		body = new Arc();
     	eye = new Circle(3.0); 
     
         body.setCenterX(x);
         body.setCenterY(y);
-        body.setRadiusX(15);
-        body.setRadiusY(15);
+        body.setRadiusX(size);
+        body.setRadiusY(size);
         body.setStartAngle(30.0);
         body.setLength(300.0);
         body.setFill(Color.YELLOW);
         body.setType(ArcType.ROUND);
-      
-        eye.setLayoutX(x+2);
-        eye.setLayoutY(y-8);
+        if(size==SIZE1) {
+	       xEyeC=2;
+	       yEyeC=8;
+        }
+        
+        eye.setLayoutX(x+xEyeC);
+        eye.setLayoutY(y-yEyeC);
         eye.setFill(Color.BLACK);
         
         pane.getChildren().add(body);

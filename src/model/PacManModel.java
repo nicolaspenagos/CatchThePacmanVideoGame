@@ -36,7 +36,7 @@ public class PacManModel {
 		yCoordenate = yY;
 		movement = movementX;
 		orientation = orientationX; 
-		//xLimitCorrection
+		
 	
 	}
 	
@@ -94,6 +94,14 @@ public class PacManModel {
 		}else if(xCoordenate <=  PacManController.MIN_WIDTH+10) {
 			orientation = RIGHT;
 		}
+		
+		
+		if(yCoordenate >= PacManController.MAX_HEIGTH-10) {
+			orientation = UP;
+		}else if(yCoordenate <=  PacManController.MIN_HEIGHT+10) {
+			orientation = DOWN;
+		}
+		
 		
 		
 		if(movement == HORIZONTAL) {
