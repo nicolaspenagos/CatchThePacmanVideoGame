@@ -12,7 +12,7 @@ public class PacMan{
 	//-------------------------------------
 	// CONSTANTS 
 	//-------------------------------------
-	public static final double SIZE1 = 10.0;
+	public static final double SIZE1 = 15.0;
 	public static final double SIZE2 = 15.0;
 	public static final double SIZE3 = 20.0;
 	
@@ -26,6 +26,7 @@ public class PacMan{
 	private Circle eye; 
 	private Pane pane; 
 	private double size; 
+	
 
 
 	

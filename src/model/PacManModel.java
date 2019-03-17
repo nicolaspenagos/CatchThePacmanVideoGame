@@ -14,10 +14,11 @@ public class PacManModel {
 	public static final char DOWN = 'D';
 	public static final char VERTICAL = 'V';
 	public static final char HORIZONTAL = 'H';
+
 	
 	//------------------------------------- 
 	// ATRIBUTTES 
-	//--------------------------------------
+	//-------------------------------------
 	
 	private double xCoordenate;
 	private double yCoordenate;
@@ -25,17 +26,25 @@ public class PacManModel {
 	private char orientation; 
 	private double xLimitCorrection; 
 	private double yLimitCorrection; 
+	private double radius; 
+	private long sleep; 
+	private int bouncings; 
+	private Boolean caught; 
 	
 	//-------------------------------------
 	// CONTRUCTOR 
 	//-------------------------------------
 
-	public PacManModel(double xX, double yY, char movementX, char orientationX) {
+	public PacManModel(double radiusx, double xX, double yY, long sleepx, char movementX, char orientationX, int bouncingsX, boolean caughtX) {
 		
+		radius      = radiusx;
 		xCoordenate = xX;
 		yCoordenate = yY;
-		movement = movementX;
+		sleep       = sleepx;
+		movement    = movementX;
 		orientation = orientationX; 
+		bouncings   = bouncingsX; 
+		caught      = caughtX; 
 		
 	
 	}
@@ -123,7 +132,25 @@ public class PacManModel {
 				yCoordenate = yCoordenate + 5; 
 			}
 		}
-		
-		
 	}
+	
+	//-------------------------------------
+	// GETTERS AND SETTERS 
+	//-------------------------------------
+	public long getSleep() {
+		return sleep;
+	}
+
+	public void setSleep(long sleep) {
+		this.sleep = sleep;
+	}
+
+	public double getRadius() {
+		return radius;
+	}
+
+	public void setRadius(double radius) {
+		this.radius = radius;
+	}
+
 }

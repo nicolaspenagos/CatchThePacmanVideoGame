@@ -1,8 +1,13 @@
 package ui;
 import ui.PacMan;
 
+import java.io.IOException;
+import java.util.List;
+
 import customsThread.PacManThread;
+import model.Game;
 import model.PacManModel;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.layout.Pane;
 
@@ -10,8 +15,11 @@ public class PacManController {
 	
 	public final static double MIN_WIDTH = 21.0;
 	public final static double MAX_WIDTH = 580.0;
-	public final static double MIN_HEIGHT = 83.0;
+	public final static double MIN_HEIGHT = 103.0;
 	public final static double MAX_HEIGTH = 380.0; 
+	
+	private Game game;
+ 	private List<PacMan> pacmans; 
 	
 	
     @FXML
@@ -19,23 +27,40 @@ public class PacManController {
    
     @FXML
     public void initialize() {
-   
-    	PacMan pCx=new PacMan(100,300, pane, PacMan.SIZE2);
-    	PacManModel pMx = new PacManModel(100, 200, PacManModel.HORIZONTAL, PacManModel.RIGHT);
-    	PacManThread t = new PacManThread(50, this, pMx, pCx);
-    	t.start();
     	
-    	PacMan pCx1=new PacMan(100,350, pane, PacMan.SIZE2);
-    	PacManModel pMx1 = new PacManModel(100, 350, PacManModel.HORIZONTAL, PacManModel.LEFT);
-    	PacManThread t1 = new PacManThread(30, this, pMx1, pCx1);
-    	t1.start();
+    }
     
-    	PacMan pCx2=new PacMan(100,350, pane, PacMan.SIZE2);
-    	PacManModel pMx2 = new PacManModel(100, 350, PacManModel.VERTICAL, PacManModel.UP);
-    	PacManThread t2 = new PacManThread(30, this, pMx2, pCx2);
-    	t2.start();
-       
-       
+    @FXML
+    void load(ActionEvent event) {
+    	
+    }
+    
+    @FXML
+    void newEasyGame(ActionEvent event) {
+    	
+		try {
+			game = new Game(0);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+    	List<PacManModel> pacmans = game.getPacMans();
+    	for(int i=0; i<pacmans.size(); i++) {
+    		
+    		PacManModel current = pacmans.get(i);
+    		
+    		long sleep  = current.getSleep(); 
+    		double xPos = current.getxCoordenate();
+    		double yPos = current.getyCoordenate(); 
+    		double radius = current.getRadius();
+    	
+    		PacMan pMCx  = new PacMan(xPos, yPos, pane, radius); 
+    		PacManThread tx = new PacManThread(sleep, this, current, pMCx);
+    		tx.start();
+    		
+    	}
+    	
     }
     
     public void update(PacManModel pMx, PacMan uiPacMan) {
@@ -44,6 +69,10 @@ public class PacManController {
     	double y = pMx.getyCoordenate(); 
     	
     	uiPacMan.move(x, y);
+    	
+    }
+    
+    public void startThread() {
     	
     }
 

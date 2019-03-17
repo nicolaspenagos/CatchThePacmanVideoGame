@@ -10,7 +10,7 @@ public class PacManThread extends Thread{
 	private PacManController pacManController; 
 	private PacMan uiPacMan;
 	
-	public PacManThread(int i, PacManController pacManController2, PacManModel pMx, PacMan pCx) {
+	public PacManThread(long i, PacManController pacManController2, PacManModel pMx, PacMan pCx) {
 	
 		sleep = i;
 		pacMan = pMx;

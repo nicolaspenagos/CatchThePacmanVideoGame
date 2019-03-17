@@ -1,16 +1,47 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.Pane?>
 
-
-<Pane  fx:id="pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.PacManController">
+<Pane fx:id="pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.PacManController">
    <children>
       <ImageView fitHeight="400.0" fitWidth="600.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@images/Background-01-01.jpg" />
+            <Image url="@images/Background-01-01-01.jpg" />
          </image>
       </ImageView>
+      <MenuBar id="menuBar" layoutY="1.0" prefHeight="26.0" prefWidth="600.0" style="-fx-background-color: trasparent;">
+        <menus>
+            <Menu mnemonicParsing="false" text="New Game">
+              <items>
+                <MenuItem mnemonicParsing="false" onAction="#newEasyGame" text="Easy" />
+                  <MenuItem mnemonicParsing="false" text="Medium" />
+                  <MenuItem mnemonicParsing="false" text="Hard" />
+              </items>
+            </Menu>
+          <Menu mnemonicParsing="false" text="File">
+            <items>
+                  <Menu mnemonicParsing="false" text="Load Game">
+                    <items>
+                      <MenuItem mnemonicParsing="false" text="Action 1" />
+                    </items>
+                  </Menu>
+              <MenuItem mnemonicParsing="false" text="Load Game" />
+                  <MenuItem mnemonicParsing="false" text="Save Game" />
+                  <MenuItem mnemonicParsing="false" text="Exit" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Edit">
+            <items>
+              <MenuItem mnemonicParsing="false" text="Best Scores" />
+                  <MenuItem mnemonicParsing="false" text="About the game" />
+            </items>
+          </Menu>
+        </menus>
+      </MenuBar>
    </children>
 </Pane>
