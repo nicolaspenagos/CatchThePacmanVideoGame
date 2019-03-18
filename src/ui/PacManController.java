@@ -2,8 +2,10 @@ package ui;
 import ui.PacMan;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
+import customsThread.GUIUpdateControllThread;
 import customsThread.PacManThread;
 import model.Game;
 import model.PacManModel;
@@ -20,6 +22,7 @@ public class PacManController {
 	
 	private Game game;
  	private List<PacMan> pacmans; 
+ 	private List<PacManModel> pacmansM; 
 	
 	
     @FXML
@@ -27,6 +30,11 @@ public class PacManController {
    
     @FXML
     public void initialize() {
+    	pacmans = new ArrayList<>();
+    	pacmansM = new ArrayList<>();
+    	GUIUpdateControllThread guiThread = new GUIUpdateControllThread(this); 
+    	guiThread.setDaemon(true);
+    	guiThread.start();
     	
     }
     
@@ -45,17 +53,19 @@ public class PacManController {
 			e.printStackTrace();
 		}
 		
-    	List<PacManModel> pacmans = game.getPacMans();
-    	for(int i=0; i<pacmans.size(); i++) {
+    	pacmansM = game.getPacMans();
+    	for(int i=0; i<pacmansM.size(); i++) {
     		
-    		PacManModel current = pacmans.get(i);
+    		PacManModel current = pacmansM.get(i);
     		
-    		long sleep  = current.getSleep(); 
-    		double xPos = current.getxCoordenate();
-    		double yPos = current.getyCoordenate(); 
-    		double radius = current.getRadius();
+    		long sleep       = current.getSleep(); 
+    		double xPos      = current.getxCoordenate();
+    		double yPos      = current.getyCoordenate(); 
+    		double radius    = current.getRadius();
+    		char orientation = current.getOrientation();
     	
-    		PacMan pMCx  = new PacMan(xPos, yPos, pane, radius); 
+    		PacMan pMCx  = new PacMan(xPos, yPos, pane, radius, orientation); 
+    		pacmans.add(pMCx);
     		PacManThread tx = new PacManThread(sleep, this, current, pMCx);
     		tx.start();
     		
@@ -63,13 +73,10 @@ public class PacManController {
     	
     }
     
-    public void update(PacManModel pMx, PacMan uiPacMan) {
-    	
-    	double x = pMx.getxCoordenate();
-    	double y = pMx.getyCoordenate(); 
-    	
-    	uiPacMan.move(x, y);
-    	
+    public void update() {
+    	for(int i=0; i<pacmans.size(); i++) {
+    		pacmans.get(i).move(pacmansM.get(i).getxCoordenate(), pacmansM.get(i).getyCoordenate(), pacmansM.get(i).getOrientation());
+    	}
     }
     
     public void startThread() {

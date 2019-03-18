@@ -4,6 +4,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Arc;
 import javafx.scene.shape.ArcType;
 import javafx.scene.shape.Circle;
+import model.PacManModel;
 
 
 
@@ -26,6 +27,9 @@ public class PacMan{
 	private Circle eye; 
 	private Pane pane; 
 	private double size; 
+	private char orientation;
+	private int counter;
+	private boolean open;
 	
 
 
@@ -33,12 +37,15 @@ public class PacMan{
 	//-------------------------------------
 	// CONSTRUCTOR
 	//-------------------------------------
-	public PacMan(double x, double y, Pane px, double sx){
+	public PacMan(double x, double y, Pane px, double sx, char o){
 		
 		xCoordinate = x; 
 		yCoordinate = y;
 		pane = px;
 		size = sx; 
+		orientation = o;
+		counter = 0;
+		boolean open = true;
 		int xEyeC=0;
 		int yEyeC=0;
 		
@@ -49,14 +56,19 @@ public class PacMan{
         body.setCenterY(y);
         body.setRadiusX(size);
         body.setRadiusY(size);
-        body.setStartAngle(30.0);
-        body.setLength(300.0);
+        if(orientation == PacManModel.LEFT)
+        	body.setStartAngle(200.0);
+        if(orientation == PacManModel.RIGHT)
+        	body.setStartAngle(30.0);
+        body.setLength(300);
         body.setFill(Color.YELLOW);
         body.setType(ArcType.ROUND);
-        if(size==SIZE1) {
-	       xEyeC=2;
-	       yEyeC=8;
-        }
+       
+	    xEyeC=2;
+	    yEyeC=8;
+        
+	    if(orientation == PacManModel.UP||orientation == PacManModel.DOWN)
+	    	 xEyeC=-2;
         
         eye.setLayoutX(x+xEyeC);
         eye.setLayoutY(y-yEyeC);
@@ -87,11 +99,43 @@ public class PacMan{
 		this.yCoordinate = yCoordinate;
 	}
 	
-	public void move(double x, double y) {
+	public void move(double x, double y, char o) {
+		
+		char actualO = o;
+		if(actualO == PacManModel.LEFT) 
+			body.setStartAngle(200.0);
+		
+	    if(actualO == PacManModel.RIGHT)
+	    	body.setStartAngle(30.0);
+	    
+	    if(actualO == PacManModel.UP) 
+			body.setStartAngle(100);
+		
+	    if(actualO == PacManModel.DOWN)
+	    	body.setStartAngle(290);
+	    
+	    if(counter%15==0) 
+	    	open = !open; 
+	     	
+	    
+	    if(open) {
+	    	body.setLength(360);
+	    }else {
+	    	body.setLength(300);
+	    }
+			
 		body.setLayoutX(x-xCoordinate);
     	body.setLayoutY(y-yCoordinate);
+    	int xx=2;
+    	int yy=8;
+    	if(orientation == PacManModel.UP||orientation == PacManModel.DOWN) {
+	    	 xx=-5;
+	    	 yy=6;
+    	}
     	
-    	eye.setLayoutX(x+2);
-        eye.setLayoutY(y-8);
+    	eye.setLayoutX(x+xx);
+        eye.setLayoutY(y-yy);
+        counter++;
+        
 	}
 }

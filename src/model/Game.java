@@ -98,13 +98,13 @@ public class Game {
 					
 					if(orientationX.equalsIgnoreCase("right")) {
 						orientation=PacManModel.RIGHT; 
-					}else if(movementX.equalsIgnoreCase("left")) {
+					}else if(orientationX.equalsIgnoreCase("left")) {
 						orientation=PacManModel.LEFT; 
 					}
 					
 					if(orientationX.equalsIgnoreCase("up")) {
 						orientation=PacManModel.UP; 
-					}else if(movementX.equalsIgnoreCase("donw")) {
+					}else if(orientationX.equalsIgnoreCase("down")) {
 						orientation=PacManModel.DOWN; 
 					}
 					
