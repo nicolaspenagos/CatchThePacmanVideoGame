@@ -4,6 +4,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Arc;
 import javafx.scene.shape.ArcType;
 import javafx.scene.shape.Circle;
+import model.Game;
 import model.PacManModel;
 
 
@@ -30,6 +31,7 @@ public class PacMan{
 	private char orientation;
 	private int counter;
 	private boolean open;
+	private Game game;
 	
 
 
@@ -99,43 +101,45 @@ public class PacMan{
 		this.yCoordinate = yCoordinate;
 	}
 	
-	public void move(double x, double y, char o) {
+	public void move(double x, double y, char o, boolean stop) {
 		
-		char actualO = o;
-		if(actualO == PacManModel.LEFT) 
-			body.setStartAngle(200.0);
-		
-	    if(actualO == PacManModel.RIGHT)
-	    	body.setStartAngle(30.0);
-	    
-	    if(actualO == PacManModel.UP) 
-			body.setStartAngle(100);
-		
-	    if(actualO == PacManModel.DOWN)
-	    	body.setStartAngle(290);
-	    
-	    if(counter%15==0) 
-	    	open = !open; 
-	     	
-	    
-	    if(open) {
-	    	body.setLength(360);
-	    }else {
-	    	body.setLength(300);
-	    }
+		if(!stop) {
+			char actualO = o;
+			if(actualO == PacManModel.LEFT) 
+				body.setStartAngle(200.0);
 			
-		body.setLayoutX(x-xCoordinate);
-    	body.setLayoutY(y-yCoordinate);
-    	int xx=2;
-    	int yy=8;
-    	if(orientation == PacManModel.UP||orientation == PacManModel.DOWN) {
-	    	 xx=-5;
-	    	 yy=6;
-    	}
-    	
-    	eye.setLayoutX(x+xx);
-        eye.setLayoutY(y-yy);
-        counter++;
+		    if(actualO == PacManModel.RIGHT)
+		    	body.setStartAngle(30.0);
+		    
+		    if(actualO == PacManModel.UP) 
+				body.setStartAngle(100);
+			
+		    if(actualO == PacManModel.DOWN)
+		    	body.setStartAngle(290);
+		    
+		    if(counter%30==0) 
+		    	open = !open; 
+		     	
+		    
+		    if(open) {
+		    	body.setLength(360);
+		    }else {
+		    	body.setLength(300);
+		    }
+				
+			body.setLayoutX(x-xCoordinate);
+	    	body.setLayoutY(y-yCoordinate);
+	    	int xx=2;
+	    	int yy=8;
+	    	if(orientation == PacManModel.UP||orientation == PacManModel.DOWN) {
+		    	 xx=-5;
+		    	 yy=6;
+	    	}
+	    	
+	    	eye.setLayoutX(x+xx);
+	        eye.setLayoutY(y-yy);
+	        counter++;
+		}
         
 	}
 }

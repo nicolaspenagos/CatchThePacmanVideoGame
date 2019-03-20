@@ -2,8 +2,10 @@ package model;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,13 +18,18 @@ public class Game {
 	public static final String LOAD_PATH_LEVEL1 = "data/loadLevel1.txt";
 	public static final String LOAD_PATH_LEVEL2 = "data/loadLevel2.txt";
 	public static final String LOAD_PATH_LEVEL3 = "data/loadLevel3.txt";
+	public static final String SAVE_PATH1 = "data/save1.txt";
+	public static final String SAVE_PATH2 = "data/save2.txt";
+	public static final String SAVE_PATH3 = "data/save3.txt";
 	
 	//------------------------------------- 
 	// ASSOCIATIONS 
 	//-------------------------------------
 	private List<PacManModel> pacmans;
 	private int totalBouncings;
-	
+	private String playerName;
+	private int counter;
+	private int savingsCounter;
 	//------------------------------------- 
 	// ATRIBUTTES 
 	//-------------------------------------
@@ -37,6 +44,9 @@ public class Game {
 		pacmans = new ArrayList<>();
 		totalBouncings = 0; 
 		loadNewGameFile("\t"); 
+		playerName = "";
+		counter = 0;
+		savingsCounter = 1;
 	}
 	
 	//-------------------------------------
@@ -49,6 +59,13 @@ public class Game {
 	//-------------------------------------
 	// METHODS  
 	//-------------------------------------
+	public int totalBouncings(){
+		int total = 0;
+		for (int i = 0; i < pacmans.size(); i++) {
+			total+=pacmans.get(i).getBouncings();
+		}
+		return total;
+	}
 	public void loadNewGameFile(String sepx) throws IOException {
 		String sep = sepx;
 		boolean firstTime = true;
@@ -72,22 +89,15 @@ public class Game {
 				if(firstTime) {
 					firstTime = false; 
 				}else if(!firstTime){
-					System.out.println("ENTRO");
 					char movement = ' '; 
 					char orientation = ' ';
 					double radius    = Double.parseDouble(parts[0]);
 					double xPos      = Double.parseDouble(parts[1]);
-					System.out.println(parts[2]);
 					double yPos      = Double.parseDouble(parts[2]);
-					System.out.println(parts[3]);
 					long sleep       = Long.parseLong(parts[3]);
-					System.out.println(parts[4]);
 					String movementX  = parts[4];
-					System.out.println(parts[5]);
 					String orientationX = parts[5];
-					System.out.println(parts[6]);
 					int bouncings    = Integer.parseInt(parts[6]);
-					System.out.println(parts[7]);
 					boolean caught   = Boolean.parseBoolean(parts[7]);
 					
 					if(movementX.equalsIgnoreCase("horizontal")) {
@@ -109,15 +119,77 @@ public class Game {
 					}
 					
 					
-					PacManModel pMMx = new PacManModel(radius, xPos, yPos, sleep, movement, orientation, bouncings, caught);
+					PacManModel pMMx = new PacManModel(radius, xPos, yPos, sleep, movement, orientation, bouncings, caught, String.valueOf(counter), this);
+					counter++;
 					pacmans.add(pMMx);
 				}
 			}
 			line = br.readLine(); 
 				
+		}	
+	}
+	
+	public void saveGame() throws IOException {
+		String path = "";
+		
+		if(savingsCounter == 1) {
+			path = SAVE_PATH1;
+		}else if(savingsCounter == 2) {
+			path = SAVE_PATH2;
+		}else {
+			path = SAVE_PATH3;
+		}
+		
+		PrintWriter pw = new PrintWriter(new File(path));
+		String msg = saveMsg();
+		pw.print(msg);
+		pw.close();
+		savingsCounter++;
+	}
+	
+	public void colision(PacManModel pMx) {
+		
+		double rx  = pMx.getRadius();
+		double xPx = pMx.getxCoordenate();
+		double yPx = pMx.getyCoordenate();
+		
+		for (int i = 0; i < pacmans.size(); i++) {
+			PacManModel current = pacmans.get(i);
+			double rc = current.getRadius();
+			double xPc = current.getxCoordenate();
+			double yPc = current.getyCoordenate();
+			
+			double distance = Math.sqrt((xPc-xPx)*(xPc-xPx) + (yPc-yPx)*(yPc-yPx));
+			
+			if(distance < rx + rc) {
+				current.colision();
+				pMx.colision();	
+			}
 		}
 		
 	}
 	
+	public void stop(double x, double y) {
+		for (int i = 0; i < pacmans.size(); i++) {
+			PacManModel current = pacmans.get(i);
+			double xCurrent = current.getxCoordenate();
+			double yCurrent = current.getyCoordenate();
+			double currentR = current.getRadius();
+			
+			if(x>(xCurrent-currentR)&&x<(xCurrent+currentR)&&y>(yCurrent-currentR)&&y<(yCurrent+currentR)) {
+				current.setCaught(true);
+			}
+		}
+	}
+	
+	public String saveMsg() {
+		String msg = "#level\n#radio  posX	posY	sleep	movement	direction       bouncings	caught\n";
+		for (int i = 0; i < pacmans.size(); i++) {
+			PacManModel current = pacmans.get(i);
+			msg+= level+"\t"+current.getRadius()+"\t"+current.getxCoordenate()+"\t"+current.getyCoordenate()+"\t"+current.getSleep()+"\t"+current.getMovement()+"\t"+current.getOrientation()+"\t"+current.getBouncings()+"\t"+current.getCaught()+"\n";
+		}
+		
+		return msg;
+	}
 }
 

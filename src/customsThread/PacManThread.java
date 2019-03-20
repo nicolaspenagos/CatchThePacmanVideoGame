@@ -18,8 +18,9 @@ public class PacManThread extends Thread{
 	@Override
 	public void run() {
 		
-		for(int i=0; i<50000; i++) {
+		for(int i=0; i<999999999; i++) {
 			pacMan.move();
+			pacMan.getGame().colision(pacMan);
 			try {
 				Thread.sleep(sleep);
 			} catch (InterruptedException e) {
