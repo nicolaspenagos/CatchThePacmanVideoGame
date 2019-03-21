@@ -27,13 +27,14 @@ public class Game {
 	//-------------------------------------
 	private List<PacManModel> pacmans;
 	private int totalBouncings;
-	private String playerName;
-	private int counter;
-	private int savingsCounter;
 	//------------------------------------- 
 	// ATRIBUTTES 
 	//-------------------------------------
 	private int level; 
+	private String playerName;
+	private int counter;
+	private int savingsCounter;
+	private boolean win;
 	
 	//-------------------------------------
 	// CONTRUCTOR 
@@ -43,10 +44,10 @@ public class Game {
 		level = levelx;
 		pacmans = new ArrayList<>();
 		totalBouncings = 0; 
-		loadNewGameFile("\t"); 
 		playerName = "";
 		counter = 0;
 		savingsCounter = 1;
+		win=false;
 	}
 	
 	//-------------------------------------
@@ -54,6 +55,10 @@ public class Game {
 	//-------------------------------------
 	public List<PacManModel> getPacMans(){
 		return pacmans; 
+	}
+	
+	public boolean getWin() {
+		return win;
 	}
 	
 	//-------------------------------------
@@ -66,17 +71,26 @@ public class Game {
 		}
 		return total;
 	}
-	public void loadNewGameFile(String sepx) throws IOException {
+	public void loadNewGameFile(String sepx, int x) throws IOException {
 		String sep = sepx;
+		int option = x;
 		boolean firstTime = true;
+		String path=LOAD_PATH_LEVEL1;
+	
+		if(option == 2) {
 		
-		File f = new File(LOAD_PATH_LEVEL1);
-		if(level == 2) {
-			f = new File(LOAD_PATH_LEVEL2);
-		}else if(level == 3){
-			f = new File(LOAD_PATH_LEVEL3);
+			path=LOAD_PATH_LEVEL2;;
+		}else if(option == 3){
+			path=LOAD_PATH_LEVEL3;
+		}else if(option == 4) {
+			path=SAVE_PATH1;
+		}else if(option == 5) {
+			path=SAVE_PATH2;
+		}else if(option == 6) {
+			path=SAVE_PATH3;
 		}
 		
+		File f = new File(path);
 		FileReader fr = new FileReader(f);
 		BufferedReader br = new BufferedReader(fr);
 	
@@ -129,17 +143,27 @@ public class Game {
 		}	
 	}
 	
-	public void saveGame() throws IOException {
+	public void saveGame(int x) throws IOException {
 		String path = "";
-		
-		if(savingsCounter == 1) {
-			path = SAVE_PATH1;
-		}else if(savingsCounter == 2) {
-			path = SAVE_PATH2;
+		int slot = x;
+		if(slot==0) {
+			if(savingsCounter == 1) {
+				path = SAVE_PATH1;
+			}else if(savingsCounter == 2) {
+				path = SAVE_PATH2;
+			}else {
+				path = SAVE_PATH3;
+			}
 		}else {
-			path = SAVE_PATH3;
+			if(slot == 1) {
+				path = SAVE_PATH1;
+			}else if(slot == 2) {
+				path = SAVE_PATH2;
+			}else {
+				path = SAVE_PATH3;
+			}
 		}
-		
+			
 		PrintWriter pw = new PrintWriter(new File(path));
 		String msg = saveMsg();
 		pw.print(msg);
@@ -183,13 +207,44 @@ public class Game {
 	}
 	
 	public String saveMsg() {
-		String msg = "#level\n#radio  posX	posY	sleep	movement	direction       bouncings	caught\n";
+		String msg = "#level\n0\n#radio  posX	posY	sleep	movement	direction       bouncings	caught\n";
 		for (int i = 0; i < pacmans.size(); i++) {
 			PacManModel current = pacmans.get(i);
-			msg+= level+"\t"+current.getRadius()+"\t"+current.getxCoordenate()+"\t"+current.getyCoordenate()+"\t"+current.getSleep()+"\t"+current.getMovement()+"\t"+current.getOrientation()+"\t"+current.getBouncings()+"\t"+current.getCaught()+"\n";
+			String mov="";
+			String ori=""; 
+			if(current.getMovement()=='V') {
+				mov="vertical";
+			}else if(current.getMovement()=='H') {
+				mov="horizontal";
+			}
+			
+			if(current.getOrientation()=='R') {
+				ori = "right";
+			}else if(current.getOrientation()=='L') {
+				ori = "left";
+			}else if(current.getOrientation()=='U') {
+				ori = "up";
+			}if(current.getOrientation()=='D') {
+				ori = "down";
+			}
+			
+			msg+=current.getRadius()+"\t"+current.getxCoordenate()+"\t"+current.getyCoordenate()+"\t"+current.getSleep()+"\t"+mov+"\t"+ori+"\t"+current.getBouncings()+"\t"+current.getCaught()+"\n";
 		}
 		
 		return msg;
+	}
+	
+	public void win() {
+		
+		int caught=0;
+		for (int i = 0; i < pacmans.size(); i++) {
+			PacManModel current = pacmans.get(i);
+			if(current.getCaught()) {
+				caught++; 
+			}
+		}
+		if(caught==pacmans.size())
+			win=true; 
 	}
 }
 

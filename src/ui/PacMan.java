@@ -100,7 +100,10 @@ public class PacMan{
 	public void setYCoordinate(double yCoordinate) {
 		this.yCoordinate = yCoordinate;
 	}
-	
+	public void turnOf() {
+		body.setVisible(false);
+		eye.setVisible(false);
+	}
 	public void move(double x, double y, char o, boolean stop) {
 		
 		if(!stop) {

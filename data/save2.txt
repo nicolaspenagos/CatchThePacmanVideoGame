@@ -1,0 +1,8 @@
+#level
+0
+#radio  posX	posY	sleep	movement	direction       bouncings	caught
+15.0	200.0	165.0	15	vertical	down	21	true
+15.0	195.0	120.0	30	horizontal	right	2	true
+15.0	350.0	295.0	50	vertical	down	14	false
+15.0	175.0	220.0	30	horizontal	left	1	true
+15.0	180.0	205.0	50	vertical	down	0	true

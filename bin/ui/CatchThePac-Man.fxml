@@ -1,12 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
 
 <Pane fx:id="pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#stopPacMan" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ui.PacManController">
    <children>
@@ -20,25 +24,31 @@
             <Menu mnemonicParsing="false" text="New Game">
               <items>
                 <MenuItem mnemonicParsing="false" onAction="#newEasyGame" text="Easy" />
-                  <MenuItem mnemonicParsing="false" text="Medium" />
-                  <MenuItem mnemonicParsing="false" text="Hard" />
+                  <MenuItem mnemonicParsing="false" onAction="#newMediumGame" text="Medium" />
+                  <MenuItem mnemonicParsing="false" onAction="#newHardGame" text="Hard" />
               </items>
             </Menu>
           <Menu mnemonicParsing="false" text="File">
             <items>
-                  <Menu mnemonicParsing="false" text="Load Game">
+                  <Menu mnemonicParsing="false" text="Save Game">
                     <items>
-                      <MenuItem mnemonicParsing="false" text="Action 1" />
+                      <MenuItem mnemonicParsing="false" onAction="#saveSlot1" text="Slot 1" />
+                        <MenuItem mnemonicParsing="false" onAction="#saveSlot2" text="Slot 2" />
+                        <MenuItem mnemonicParsing="false" onAction="#saveSlot3" text="Slot 3" />
                     </items>
                   </Menu>
-              <MenuItem mnemonicParsing="false" text="Load Game" />
-                  <MenuItem mnemonicParsing="false" onAction="#saveGame" text="Save Game" />
-                  <MenuItem mnemonicParsing="false" text="Exit" />
+                  <Menu mnemonicParsing="false" text="Load Game">
+                    <items>
+                      <MenuItem mnemonicParsing="false" onAction="#loadSlot1" text="Load slot 1" />
+                        <MenuItem mnemonicParsing="false" onAction="#loadSlot2" text="Load slot 2" />
+                        <MenuItem mnemonicParsing="false" onAction="#loadSlot3" text="Load Slot 3" />
+                    </items>
+                  </Menu>
             </items>
           </Menu>
           <Menu mnemonicParsing="false" text="Edit">
             <items>
-              <MenuItem mnemonicParsing="false" text="Best Scores" />
+              <MenuItem mnemonicParsing="false" onAction="#showBS" text="Best Scores" />
                   <MenuItem mnemonicParsing="false" text="About the game" />
             </items>
           </Menu>
@@ -46,5 +56,18 @@
       </MenuBar>
       <Label fx:id="clicks" layoutX="328.0" layoutY="5.0" prefHeight="17.0" prefWidth="44.0" />
       <Label fx:id="bouncings" layoutX="457.0" layoutY="8.0" prefHeight="17.0" prefWidth="50.0" text="0" textFill="#d51616" />
+      <Label fx:id="won" layoutX="107.0" layoutY="180.0" prefHeight="123.0" prefWidth="409.0" text="YOU WON!!" textFill="#f2ff00">
+         <font>
+            <Font size="72.0" />
+         </font>
+      </Label>
+      <Label fx:id="congrats" layoutX="234.0" layoutY="186.0" text="Congratulations" textFill="WHITE">
+         <font>
+            <Font name="System Italic" size="19.0" />
+         </font>
+      </Label>
+      <TextField fx:id="name" layoutX="225.0" layoutY="291.0" promptText="Enter your name" />
+      <Button fx:id="bname" layoutX="279.0" layoutY="328.0" mnemonicParsing="false" onAction="#saveName" text="Save" />
+      <TextArea fx:id="textA" layoutX="96.0" layoutY="104.0" prefHeight="258.0" prefWidth="409.0" />
    </children>
 </Pane>
