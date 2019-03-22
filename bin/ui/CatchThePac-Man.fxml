@@ -46,10 +46,9 @@
                   </Menu>
             </items>
           </Menu>
-          <Menu mnemonicParsing="false" text="Edit">
+          <Menu mnemonicParsing="false" text="To see">
             <items>
               <MenuItem mnemonicParsing="false" onAction="#showBS" text="Best Scores" />
-                  <MenuItem mnemonicParsing="false" text="About the game" />
             </items>
           </Menu>
         </menus>

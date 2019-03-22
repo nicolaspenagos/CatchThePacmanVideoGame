@@ -26,7 +26,7 @@ public class Game {
 	// ASSOCIATIONS 
 	//-------------------------------------
 	private List<PacManModel> pacmans;
-	private int totalBouncings;
+	
 	//------------------------------------- 
 	// ATRIBUTTES 
 	//-------------------------------------
@@ -35,6 +35,7 @@ public class Game {
 	private int counter;
 	private int savingsCounter;
 	private boolean win;
+	private int totalBouncings;
 	
 	//-------------------------------------
 	// CONTRUCTOR 

@@ -4,10 +4,12 @@ import java.io.Serializable;
 
 public class Score implements Serializable{
 	
+	public final static String PATH ="data/info.dat";
+	
 	private String[] bestEasy;
 	private String[] bestMedium;
 	private String[] bestHard;
-	public final static String PATH ="data/info.dat";
+	
 	
 	
 	public Score() {

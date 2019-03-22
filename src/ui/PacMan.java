@@ -11,13 +11,7 @@ import model.PacManModel;
 
 public class PacMan{
 	
-	//-------------------------------------
-	// CONSTANTS 
-	//-------------------------------------
-	public static final double SIZE1 = 15.0;
-	public static final double SIZE2 = 15.0;
-	public static final double SIZE3 = 20.0;
-	
+
 	//-------------------------------------
 	// ATRIBUTTES 
 	//-------------------------------------
@@ -31,7 +25,7 @@ public class PacMan{
 	private char orientation;
 	private int counter;
 	private boolean open;
-	private Game game;
+
 	
 
 

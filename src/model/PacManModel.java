@@ -27,7 +27,7 @@ public class PacManModel {
 	private double radius; 
 	private long sleep; 
 	private int bouncings; 
-	private Boolean caught; 
+	private boolean caught; 
 	private Game game;
 	
 	//-------------------------------------
@@ -91,6 +91,43 @@ public class PacManModel {
 	public void setOrientation(char orientation) {
 		this.orientation = orientation;
 	}
+	
+	
+	public long getSleep() {
+		return sleep;
+		}
+
+		public void setSleep(long sleep) {
+			this.sleep = sleep;
+		}
+
+		public double getRadius() {
+			return radius;
+		}
+		
+		public Game getGame() {
+			return game; 
+		}
+
+		public void setRadius(double radius) {
+			this.radius = radius;
+		}
+
+		public Boolean getCaught() {
+			return caught;
+		}
+
+		public void setCaught(Boolean caught) {
+			this.caught = caught;
+		}
+
+		public int getBouncings() {
+			return bouncings;
+		}
+
+		public void setBouncings(int bouncings) {
+			this.bouncings = bouncings;
+		}
 	
 	//-------------------------------------
 	// METHODS 
@@ -157,43 +194,6 @@ public class PacManModel {
 		}
 	}
 	
-	//-------------------------------------
-	// GETTERS AND SETTERS 
-	//-------------------------------------
-	public long getSleep() {
-		return sleep;
-	}
-
-	public void setSleep(long sleep) {
-		this.sleep = sleep;
-	}
-
-	public double getRadius() {
-		return radius;
-	}
 	
-	public Game getGame() {
-		return game; 
-	}
-
-	public void setRadius(double radius) {
-		this.radius = radius;
-	}
-
-	public Boolean getCaught() {
-		return caught;
-	}
-
-	public void setCaught(Boolean caught) {
-		this.caught = caught;
-	}
-
-	public int getBouncings() {
-		return bouncings;
-	}
-
-	public void setBouncings(int bouncings) {
-		this.bouncings = bouncings;
-	}
 
 }

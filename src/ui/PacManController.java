@@ -37,7 +37,7 @@ public class PacManController {
  	private List<PacManModel> pacmansM; 
  	private Score scores; 
  	private int clicksC;
- 	private int bouncingsC;
+
  	
     @FXML
     private TextArea textA;
@@ -71,7 +71,7 @@ public class PacManController {
     	name.setVisible(false);
     	bname.setVisible(false);
     	clicksC = 0;
-    	bouncingsC = 0;
+    	bouncings.setText("0");
     	pacmans = new ArrayList<>();
     	pacmansM = new ArrayList<>();
     	GUIUpdateControllThread guiThread = new GUIUpdateControllThread(this); 
@@ -207,8 +207,8 @@ public class PacManController {
 	    		
 	    	}
     	
-    		bouncingsC=game.totalBouncings();
-    		bouncings.setText(""+bouncingsC);
+    	
+    		bouncings.setText(""+game.totalBouncings());
     	}catch (NullPointerException e){
     	
     	}
